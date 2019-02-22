@@ -7,8 +7,10 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
             http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!-- 配置spring扫描组件的路径。即让spring管理controller，service等组件类 -->
     <context:component-scan base-package="com.ifan112.demo.swmvc"/>
 
+    <!-- 启用基于注解形式的webmvc功能。即让spring基于@RestController，@RequestMapping等注解分发、处理请求和响应 -->
     <mvc:annotation-driven/>
 
 </beans>
