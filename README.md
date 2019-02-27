@@ -103,17 +103,17 @@ Java Servlet Web项目引入Spring WebMVC的方式有两种，第1中基于注�
 
 ```
 GenericServlet
-		.init()	// servlet容器初始化时会调用该方法，子类可以实现自定义逻辑。例如，初始化spring容器。
-     |
+        .init()	// servlet容器初始化时会调用该方法，子类可以实现自定义逻辑。例如，初始化spring容器。
+    |
  HttpServlet		---- servlet规范
- 	 |
+    |
 HttpServletBean		---- spring实现
-		.init()				// 重写了GenericServlet中的方法，调用initServletBean()方法
-		.initServletBean()	// 留给子类重写，实现自定义逻辑
-	 |
+        .init()             // 重写了GenericServlet中的方法，调用initServletBean()方法
+        .initServletBean()  // 留给子类重写，实现自定义逻辑
+    |
 FrameworkServlet
-		.initServletBean()	// 重写了HtppServletBean中的方法，用于初始化spring容器
-	 |
+        .initServletBean()  // 重写了HtppServletBean中的方法，用于初始化spring容器
+    |
 DispatcherServlet	---- 最主要的Servlet
 ```
 
@@ -124,11 +124,11 @@ servlet容器在初始化DispatcherServlet时，会调用继承自其父类Gener
  * servlet规范
  */
 public abstract class GenericServlet
-	implements Servlet, ServletConfig, java.io.Seralizable {
+    implements Servlet, ServletConfig, java.io.Seralizable { 
 
-	public void int() throws ServletException {
-    	// DispatcherServlet的父类HttpServletBean重写了这个方法
-	}
+    public void init() throws ServletException {
+        // DispatcherServlet的父类HttpServletBean重写了这个方法
+    }
 }
 
 
@@ -137,12 +137,11 @@ public abstract class HttpServletBean extends HttpServlet implements .. {
      * spring DisptacherServlet的父类HttpServletBean重写了init()方法，
      */
     @Override
-	public final void init() throws ServletException {
-		// ... 其它逻辑
-        
-		// 留给子类重写的方法
-		initServletBean();
-	}
+    public final void init() throws ServletException {
+        // ... 其它逻辑
+        // 留给子类重写的方法
+        initServletBean();
+    }
 }
 
 
@@ -151,14 +150,13 @@ public abstract class FrameworkServlet extends HttpServletBean implements .. {
     /**
      * spring DispatcherServlet的父类FrameworkServlet重写了initSevletBean()方法
      */
-	@Override
-	protected final void initServletBean() throws ServletException {
-		// ... 其它逻辑
-        
-		try {
+    @Override
+    protected final void initServletBean() throws ServletException {
+        // ... 其它逻辑
+        try {
             // 初始化spring web容器
-			this.webApplicationContext = initWebApplicationContext();
-			initFrameworkServlet();	// 又是留给子类重写的方法
+            this.webApplicationContext = initWebApplicationContext();
+            initFrameworkServlet();	// 又是留给子类重写的方法
         } catch (Exception e) {
             // ...
         }
